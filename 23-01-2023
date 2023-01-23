@@ -1,0 +1,13 @@
+1. First Unique Character in a String
+ 
+ class Solution:
+    def firstUniqChar(self, s: str) -> int:
+        l1=list(s)
+        c=0
+        for i in range(len(l1)):
+            if s.count(l1[i])==1:
+                return i
+                c=c+1
+                break
+        if c==0:
+            return -1
