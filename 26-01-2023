@@ -24,3 +24,9 @@ Symmetric tree
         if p and q and p.val == q.val:
             return(self.Symmetric(p.right,q.left) and self.Symmetric(p.left,q.right))
         return False
+Maximum depth  (Referred from solutions)
+    class Solution:
+    def maxDepth(self, root: Optional[TreeNode]) -> int:
+        if root == None:
+            return 0
+        return max(self.maxDepth(root.right),self.maxDepth(root.left))+1
