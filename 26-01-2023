@@ -1,0 +1,15 @@
+Inorder 
+
+    class Solution:
+    def inorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
+        return self.inorderTraversal(root.left) + [root.val] + self.inorderTraversal(root.right) if root else []
+        
+Preorder 
+    class Solution:
+    def preorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
+        return [root.val] +self.preorderTraversal(root.left)+ self.preorderTraversal(root.right) if root else []
+        
+Postorder
+    class Solution:
+    def postorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
+        return self.postorderTraversal(root.left) + self.postorderTraversal(root.right) + [root.val]  if root else []
