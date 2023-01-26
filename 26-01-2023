@@ -13,3 +13,14 @@ Postorder
     class Solution:
     def postorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
         return self.postorderTraversal(root.left) + self.postorderTraversal(root.right) + [root.val]  if root else []
+
+Symmetric tree
+    class Solution:
+    def isSymmetric(self, root: Optional[TreeNode]) -> bool:
+        return self.Symmetric(root.left,root.right)
+    def Symmetric(self,p,q):
+        if p is None and q is None:
+            return True
+        if p and q and p.val == q.val:
+            return(self.Symmetric(p.right,q.left) and self.Symmetric(p.left,q.right))
+        return False
