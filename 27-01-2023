@@ -1,0 +1,16 @@
+Balanced binary tree
+    
+    class Solution:
+    def isBalanced(self, root: Optional[TreeNode]) -> bool:
+        if root == None:
+            return True
+        righth = self.isBalanced(root.right)
+        if righth == 0:
+            return 0
+        lefth = self.isBalanced(root.left)
+        if lefth == 0:
+            return 0
+        if abs(lefth-righth)>1:
+            return 0
+        return max(righth,lefth)+1
+        
