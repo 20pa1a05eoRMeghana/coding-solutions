@@ -30,3 +30,17 @@ Diameter of Binary tree
                     exque.append(ex.right)
             res.append(lev)      
         return res
+
+Minimum Depth
+
+    class Solution:
+    def minDepth(self, root: Optional[TreeNode]) -> int:
+        if root == None:
+            return 0
+        lefth = self.minDepth(root.left)
+        righth = self.minDepth(root.right)
+        if lefth == 0:
+            return righth + 1
+        if righth == 0:
+            return lefth + 1
+        return min(righth , lefth) + 1
