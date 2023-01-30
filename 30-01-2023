@@ -9,3 +9,24 @@ Diameter of Binary tree
                 return 0
             return max(height(node.left),height(node.right)) + 1
         return max(height(root.left) + height(root.right),self.diameterOfBinaryTree(root.left),self.diameterOfBinaryTree(root.right))
+        
+   Binary tree level order
+   
+       class Solution:
+    def levelOrder(self, root: Optional[TreeNode]) -> List[List[int]]:
+        if not root:
+            return []
+        exque = deque()
+        exque.append(root)
+        res = []
+        while len(exque):
+            lev = []
+            for i in range(len(exque)):
+                ex = exque.popleft()
+                lev.append(ex.val)
+                if ex.left:
+                    exque.append(ex.left)
+                if ex.right:
+                    exque.append(ex.right)
+            res.append(lev)      
+        return res
