@@ -30,4 +30,25 @@ Binary Search Tree : Insertion
                         break
                     else:
                         curr = curr.right
+
+Tree: Level Order Traversal (same as the solution submitted for level order traversal in leetcode)
+    def levelOrder(root):
+    #Write your code here
+    if not root:
+            return []
+    exque = deque()
+    exque.append(root)
+    res = []
+    while len(exque):
+        lev = []
+        for i in range(len(exque)):
+            ex = exque.popleft()
+            lev.append(ex.info)
+            if ex.left:
+                exque.append(ex.left)
+            if ex.right:
+                exque.append(ex.right)
+        for i in lev:
+            res.append(i)      
+    print(*res,sep=" ",end=" ")
                        
