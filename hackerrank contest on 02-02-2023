@@ -1,0 +1,33 @@
+Tree: Height of a Binary Tree
+    def height(root):
+    lefth = 0
+    righth = 0
+    if(root.left):
+        lefth = height(root.left)+1
+    if(root.right):
+        righth = height(root.right)+1
+    if(righth > lefth):
+        return righth
+    else:
+        return lefth
+    
+Binary Search Tree : Insertion
+    def insert(self, val):
+        if self.root is None:
+            self.root = Node(val)
+        else:
+            curr = self.root
+            while True:
+                if val < curr.info:
+                    if curr.left is None:
+                        curr.left = Node(val)
+                        break
+                    else:
+                        curr = curr.left
+                else:
+                    if curr.right is None:
+                        curr.right = Node(val)
+                        break
+                    else:
+                        curr = curr.right
+                       
