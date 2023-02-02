@@ -1,0 +1,96 @@
+Insert into a Binary Search Tree
+    class Solution:
+    def insertIntoBST(self, root, val):
+        if not root:
+            return TreeNode(val)
+        if val<root.val:
+            root.left = self.insertIntoBST(root.left, val)
+        else:
+            root.right = self.insertIntoBST(root.right, val)
+        return root
+        
+Lowest Common Ancestor of a Binary Search Tree
+    class Solution:
+    def lowestCommonAncestor(self, root: 'TreeNode', v1: 'TreeNode', v2: 'TreeNode') -> 'TreeNode':
+        if (root.val < v1.val and root.val > v2.val):
+            return root
+        elif (root.val > v1.val and root.val < v2.val):
+            return root
+        elif root.val < v1.val and root.val < v2.val:
+            return lowestCommonAncestor(root.right, v1, v2)
+        elif root.val == v1.val or root.val == v2.val:
+            return root
+
+ Kth Smallest Element in a BST
+     class Solution:
+    def kthSmallest(self, root: Optional[TreeNode], k: int) -> int:
+        a = []
+        ele = self.inorder(root,a)
+        return ele[k-1]
+    def inorder(self,root,a):
+        if(root):
+            self.inorder(root.left,a)
+            a.append(root.val)  
+            self.inorder(root.right,a)
+        return a
+
+Binary Search Tree Iterator
+    class BSTIterator:
+
+    def __init__(self, root: Optional[TreeNode]):
+        def inorder(root):
+            if root is None:
+                return []
+            return inorder(root.left)+[root.val]+inorder(root.right)
+        self.TreeNode = inorder(root)        
+
+    def next(self) -> int:
+        return self.TreeNode.pop(0)
+        
+
+    def hasNext(self) -> bool:
+        return len(self.TreeNode) != 0
+
+Convert Sorted List to Binary Search Tree
+    class Solution:
+    def sortedListToBST(self, head: Optional[ListNode]) -> Optional[TreeNode]:
+        nums=[]
+        while head:
+            nums.append(head.val)
+            head=head.next
+        def sortedArrayToBST( nums):
+            if len(nums)==0:
+                return None
+            mid=len(nums)//2
+            root=TreeNode(nums[mid])
+            root.left=sortedArrayToBST(nums[:mid])
+            root.right=sortedArrayToBST(nums[mid+1:])
+            return root
+        return sortedArrayToBST(nums)
+
+Convert Sorted Array to Binary Search Tree
+    class Solution:
+    def sortedArrayToBST(self, nums: List[int]) -> Optional[TreeNode]:
+        if len(nums)==0:
+            return None
+        mid=len(nums)//2
+        root=TreeNode(nums[mid])
+        root.left=self.sortedArrayToBST(nums[:mid])
+        root.right=self.sortedArrayToBST(nums[mid+1:])
+        return root
+
+Validate Binary Search Tree
+    class Solution:
+    def isValidBST(self, root: Optional[TreeNode]) -> bool:
+        res = self.inorder(root,[])
+        print(res)
+        if len(res) != len(set(res)):
+            return False
+        return res == sorted(res)
+
+    def inorder(self,root,arr):
+        if root:
+            self.inorder(root.left,arr)
+            arr.append(root.val)
+            self.inorder(root.right,arr)
+        return arr
