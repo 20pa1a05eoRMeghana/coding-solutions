@@ -1,0 +1,64 @@
+Lowest Common Ancestor of a Binary Tree
+    class Solution:
+        def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
+            if root == None or root == p or root == q:
+                return root
+            l = self.lowestCommonAncestor(root.left, p, q)
+            r = self.lowestCommonAncestor(root.right, p, q)
+            if l and r:
+                return root
+            if l:
+                return l
+            else:
+                return r
+Path sum
+    class Solution:
+        def hasPathSum(self, root: Optional[TreeNode], targetSum: int) -> bool:
+            if root is None: 
+                return False
+            targetSum = targetSum - root.val
+            if root.left is None and root.right is None:
+                return targetSum == 0 
+            return self.hasPathSum(root.left, targetSum) or self.hasPathSum(root.right, targetSum)
+           
+Flatten Binary Tree to Linked List
+    class Solution:
+        def flatten(self, root: Optional[TreeNode]) -> None:
+            """
+            Do not return anything, modify root in-place instead.
+            """
+            if root is None:
+                return
+            while(root != None):
+                if(root.left != None):
+                    curr = root.left
+                    while(curr.right != None):
+                        curr = curr.right
+                    curr.right = root.right
+                    root.right = root.left
+                    root.left = None
+                root = root.right
+                
+ Find Mode in Binary Search Tree
+     class Solution:
+        def inorder(self,root,lst):
+            if root:
+                self.inorder(root.left,lst)
+                lst.append(root.val)
+                self.inorder(root.right,lst)
+            return lst
+        def findMode(self, root: Optional[TreeNode]) -> List[int]:
+            lst=[]
+            res = self.inorder(root,lst)
+            d=defaultdict(lambda:0)
+            for i in res:
+                d[i]+=1
+            ans=-1
+            for i in d:
+                if d[i]>ans:
+                    ans=d[i]
+            re=set()
+            for i in res:
+                if d[i]==ans:
+                    re.add(i)
+            return list(re)       
