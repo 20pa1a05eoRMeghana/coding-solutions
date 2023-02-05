@@ -1,0 +1,44 @@
+Convert binary number in a linkedlist
+class Solution {
+    public int getDecimalValue(ListNode head) {
+        int s = 0;
+        while(head != null){
+            s = s*2;
+            s = s+head.val;
+            head = head.next;
+        }
+        return s;
+    }
+}
+
+middle of linkedlist
+class Solution {
+    public ListNode middleNode(ListNode head) {
+        ListNode root = head;
+        int n = 0;
+        while(root != null){
+            root = root.next;
+            n = n+1;
+        }
+        int len = (int) Math.ceil(n/2);
+        for(int i=0;i<len;i++){
+            head = head.next;
+        }
+        return head;
+        
+    }
+}
+
+reverse linkedlist
+class Solution {
+    public ListNode reverseList(ListNode head) {
+        ListNode newHead=null;
+        while(head != null){
+            ListNode next= head.next;
+            head.next = newHead;
+            newHead = head;
+            head = next;
+        }
+        return newHead;
+    }
+}
