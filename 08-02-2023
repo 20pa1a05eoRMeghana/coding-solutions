@@ -1,0 +1,45 @@
+Flood fill
+ class Solution {
+    public int[][] floodFill(int[][] image, int sr, int sc, int color) {
+        int [][]ans=image;
+        int iniColor=image[sr][sc];
+        int delRow[]={-1,1,0,0};
+        int delCol[]={0,0,1,-1};
+        dfs(image,sr,sc,color,iniColor,ans,delRow,delCol);
+        return ans;
+    }
+    public void dfs(int[][] image,int sr, int sc, int color,int iniColor,int [][]ans,
+    int delRow[],int delCol[]){
+        ans[sr][sc]=color;
+        int n=image.length;
+        int m=image[0].length;
+        for(int i=0;i<4;i++){
+            int nrow=sr+delRow[i];
+            int ncol=sc+delCol[i];
+            if(nrow>=0 && nrow<n && ncol>=0 && ncol<m && image[nrow][ncol]==iniColor &&
+            ans[nrow][ncol]!=color){
+                dfs(image,nrow,ncol,color,iniColor,ans,delRow,delCol);
+            }
+        }
+    }
+}
+
+keys and rooms
+ class Solution {
+    boolean[] visited;
+    public boolean canVisitAllRooms(List<List<Integer>> rooms) {
+        visited = new boolean[rooms.size()];
+        visited[0] = true;
+        dfs(rooms,0);
+        for(boolean b:visited)if(!b) return false;
+        return true;
+    }
+    public void dfs(List<List<Integer>> rooms, int r){
+        for(int i:rooms.get(r)){
+            if(!visited[i]){
+                visited[i]=true;
+                dfs(rooms,i);
+            }
+        }
+    }
+}
