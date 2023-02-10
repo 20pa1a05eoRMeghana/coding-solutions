@@ -1,0 +1,181 @@
+Minimum time for spoiling
+ import java.io.*;
+import java.util.*;
+class Pair {
+  int row;
+  int col;
+  int tm;
+  Pair(int _row, int _col, int _tm) {
+    this.row = _row;
+    this.col = _col;
+    this.tm = _tm;
+  }
+}
+public class Solution {
+
+    public static void main(String[] args) {
+        /* Enter your code here. Read input from STDIN. Print output to STDOUT. Your class should be named Solution. */
+        Scanner sc =new Scanner(System.in);
+        int []a = new int [2];
+        for (int i=0;i<a.length;i++)
+            a[i] = sc.nextInt();
+        int l1 = a[0];
+        int l2 = a[1];
+        int grid[][] = new int[l1][l2];
+        for(int i=0;i<l1;i++){
+            for(int j=0;j<l2;j++){
+                grid[i][j] = sc.nextInt();
+            }
+        }       
+        int n = grid.length;
+        int m = grid[0].length;
+        Queue < Pair > q = new LinkedList < > ();
+        int[][] vis = new int[n][m];
+        int cntFresh = 0;
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                if (grid[i][j] == 2) {
+                    q.add(new Pair(i, j, 0));
+                    vis[i][j] = 2;
+                }
+                else {
+                    vis[i][j] = 0;
+                }
+                if (grid[i][j] == 1) cntFresh++;
+            }
+        }
+        int tm = 0;
+        int drow[] = {-1, 0, +1, 0};
+        int dcol[] = {0, 1, 0, -1}; 
+        int cnt = 0;
+        while (!q.isEmpty()) {
+            int r = q.peek().row;
+            int c = q.peek().col;
+            int t = q.peek().tm;
+            tm = Math.max(tm, t);
+            q.remove();
+            for (int i = 0; i < 4; i++) {
+                int nrow = r + drow[i];
+                int ncol = c + dcol[i];
+                if (nrow >= 0 && nrow < n && ncol >= 0 && ncol < m &&
+                    vis[nrow][ncol] == 0 && grid[nrow][ncol] == 1) {
+                    q.add(new Pair(nrow, ncol, t + 1));
+                    vis[nrow][ncol] = 2;
+                    cnt++;
+                }
+            }
+        }
+        if (cnt != cntFresh) System.out.println(-1);
+        
+        else System.out.println(tm);
+    }
+}
+
+count islands 1
+ import java.io.*;
+import java.util.*;
+public class Solution {
+    public static void DFS(int grid[][],int i,int j){
+        if(i < 0 || j < 0 || i >= grid.length || j >= grid[0].length || grid[i][j] != 1 )
+            return;
+        grid[i][j] = '0';
+        DFS(grid, i+1, j);
+        DFS(grid, i-1, j); 
+        DFS(grid, i, j-1); 
+        DFS(grid, i, j+1);
+        DFS(grid,i-1, j-1);
+        DFS(grid,i+1, j+1);
+        DFS(grid,i-1, j+1);
+        DFS(grid,i+1, j-1);
+    }
+    public static void main(String[] args) {
+        /* Enter your code here. Read input from STDIN. Print output to STDOUT. Your class should be named Solution. */
+        Scanner sc = new Scanner(System.in);
+        int l1 = sc.nextInt();
+        int l2 = sc.nextInt();
+        int grid[][] = new int[l1][l2];
+        for(int i=0;i<l1;i++){
+            for(int j=0;j<l2;j++){
+                grid[i][j] = sc.nextInt();
+            }
+        }        
+        int c = 0;
+        for(int i=0;i<l1;i++){
+            for(int j=0;j<l2;j++){
+                if(grid[i][j]==1){
+                    DFS(grid,i,j);
+                    c=c+1;
+                }
+            }
+        }
+        System.out.println(c);
+    }
+}
+
+bfs shortest reach(python)
+ import math
+import os
+import random
+import re
+import sys
+
+#
+# Complete the 'bfs' function below.
+#
+# The function is expected to return an INTEGER_ARRAY.
+# The function accepts following parameters:
+#  1. INTEGER n
+#  2. INTEGER m
+#  3. 2D_INTEGER_ARRAY edges
+#  4. INTEGER s
+#
+
+
+from collections import deque, defaultdict
+
+def bfs(n, m, edges, s, cost = 6):
+    
+    graph = defaultdict(list)
+    for u, v in edges:
+        graph[u] += [v]
+        graph[v] += [u]
+    res = [-1] * (n+1)
+    res[s] = 0
+    qu = deque([(s, 0)])
+    while qu:
+        node, total = qu.popleft()
+        total += cost
+        for i in graph[node]:
+            if res[i] == -1:
+                qu.append((i, total))
+                res[i] = total
+    
+    return res[1:s] + res[s+1:]
+
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+
+    q = int(input().strip())
+
+    for q_itr in range(q):
+        first_multiple_input = input().rstrip().split()
+
+        n = int(first_multiple_input[0])
+
+        m = int(first_multiple_input[1])
+
+        edges = []
+
+        for _ in range(m):
+            edges.append(list(map(int, input().rstrip().split())))
+
+        s = int(input().strip())
+
+        result = bfs(n, m, edges, s)
+
+        fptr.write(' '.join(map(str, result)))
+        fptr.write('\n')
+
+    fptr.close()
+
+ 
